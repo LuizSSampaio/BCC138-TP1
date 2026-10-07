@@ -21,10 +21,10 @@
   env.CC = "clang";
 
   # https://devenv.sh/git-hooks/
-  git-hooks.hooks = {
-    clang-format.enable = true;
-    clang-tidy.enable = true;
-  };
+  # git-hooks.hooks = {
+  #   clang-format.enable = true;
+  #   clang-tidy.enable = true;
+  # };
 
   # See full reference at https://devenv.sh/reference/options/
 }
