@@ -11,7 +11,7 @@ Veiculo::Veiculo()
 Veiculo::~Veiculo() {}
 
 // Aplica a fórmula do veículo. O resultado fica entre 0 e 100
-// (mínimo 34 e máximo 75 com as faixas dadas), usando divisão inteira.
+// (mínimo 34 e máximo 73 com as faixas dadas), usando divisão inteira.
 int Veiculo::getPoderAtaque() const {
     return ((poderAtaque * 5) + (blindagem * 4) + (potenciaDeFogo * 1)) / 10;
 }

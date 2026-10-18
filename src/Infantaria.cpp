@@ -11,7 +11,7 @@ Infantaria::Infantaria()
 Infantaria::~Infantaria() {}
 
 // Aplica a fórmula da infantaria. O resultado fica entre 0 e 100
-// (mínimo 27 e máximo 53 com as faixas dadas), usando divisão inteira.
+// (mínimo 23 e máximo 53 com as faixas dadas), usando divisão inteira.
 int Infantaria::getPoderAtaque() const {
     return ((poderAtaque * 5) + (forca * 3) + (velocidade * 2)) / 10;
 }
