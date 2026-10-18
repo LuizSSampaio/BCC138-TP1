@@ -6,25 +6,26 @@
 #include "Batalha.hpp"
 #include "Exercito.hpp"
 
-class Campanha{
-
+class Campanha {
 private:
-//vetor de batalhas e ponteiros para os exercitos das campanhas
-    std::vector<Batalha*> batalhas;
-    std::vector<Exercito*> exercitos;
+    std::vector<std::unique_ptr<Batalha>> batalhas;   // Batalhas criadas e geridas exclusivamente pela campanha
+    std::vector<std::shared_ptr<Exercito>> exercitos; // Exércitos participantes da campanha
 
 public:
+    Campanha() = default;
+    ~Campanha() = default;
 
-Campanha();
-~Campanha();
+    // Adiciona um exército participante à campanha
+    void addExercito(std::shared_ptr<Exercito> exercito);
 
-void addExercito(Exercito* exercito);
+    // Simula todos os confrontos em turno e returno (ida e volta)
+    void simularBatalhas();
 
-void simularBatalhas();
-void gerarTabelaDePosicoes(const std::string& nomeArquivo = "");
-void mostrarUnidadeMaisDestrutiva() const
+    // Gera a tabela de classificação exibindo em tela ou salvando em arquivo se o caminho for fornecido
+    void gerarTabelaDePosicoes(const std::string& nomeArquivo = "");
 
-
+    // Identifica e exibe no console a unidade com o maior número de destruições
+    void mostrarUnidadeMaisDestrutiva() const;
 };
 
 

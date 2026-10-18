@@ -27,9 +27,15 @@ public:
     // Virtual puro: cada subclasse aplica sua própria fórmula.
     virtual int getPoderAtaque() const = 0;
 
+    // Sorteia novamente os atributos e o poder da unidade para uma nova batalha
+    virtual void sortearAtributos() = 0;
+
     // Retorna o nome do tipo da unidade
     // Usado na impressão das unidades do exército.
     virtual std::string getTipo() const = 0;
+
+    // Imprime informações da unidade
+    virtual void print() const;
 
     // Soma uma destruicao ao registro da unidade
     void somaDestruicao();

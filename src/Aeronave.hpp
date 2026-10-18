@@ -4,11 +4,6 @@
 
 #include <string>
 
-/**
- * Unidade aérea: caças, helicópteros e similares.
- * Atributos próprios: manobrabilidade (30 a 70) e alcance (20 a 50).
- * O poderAtaque base (50 a 90) é herdado de Unidade.
- */
 class Aeronave : public Unidade {
 private:
     int manobrabilidade;  // Agilidade da aeronave (30 a 70)
@@ -24,6 +19,9 @@ public:
     // Poder de ataque final:
     // ((poderAtaque*5) + (manobrabilidade*3) + (alcance*2)) / 10
     int getPoderAtaque() const override;
+
+    // Sorteia novamente os atributos e poder da aeronave
+    void sortearAtributos() override;
 
     // Retorna "Aeronave"
     std::string getTipo() const override;

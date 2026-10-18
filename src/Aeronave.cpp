@@ -16,6 +16,13 @@ int Aeronave::getPoderAtaque() const {
     return ((poderAtaque * 5) + (manobrabilidade * 3) + (alcance * 2)) / 10;
 }
 
+// Sorteia novamente os atributos da aeronave para uma nova batalha
+void Aeronave::sortearAtributos() {
+    poderAtaque = sorteiaValor(50, 90);
+    manobrabilidade = sorteiaValor(30, 70);
+    alcance = sorteiaValor(20, 50);
+}
+
 // Identifica o tipo da unidade para impressão e relatórios
 std::string Aeronave::getTipo() const {
     return "Aeronave";

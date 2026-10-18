@@ -4,11 +4,6 @@
 
 #include <string>
 
-/**
- * Unidade de veículo: tanques, blindados e similares.
- * Atributos próprios: blindagem (30 a 70) e potenciaDeFogo (20 a 50).
- * O poderAtaque base (40 a 80) é herdado de Unidade.
- */
 class Veiculo : public Unidade {
 private:
     int blindagem;       // Resistência do veículo (30 a 70)
@@ -24,6 +19,9 @@ public:
     // Poder de ataque final:
     // ((poderAtaque*5) + (blindagem*4) + (potenciaDeFogo*1)) / 10
     int getPoderAtaque() const override;
+
+    // Sorteia novamente os atributos e poder do veículo
+    void sortearAtributos() override;
 
     // Retorna "Veiculo"
     std::string getTipo() const override;

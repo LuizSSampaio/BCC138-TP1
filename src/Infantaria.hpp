@@ -4,11 +4,6 @@
 
 #include <string>
 
-/**
- * Unidade de infantaria: soldados a pé.
- * Atributos próprios: força (20 a 50) e velocidade (10 a 40).
- * O poderAtaque base (30 a 60) é herdado de Unidade.
- */
 class Infantaria : public Unidade {
 private:
     int forca;       // Força da unidade (20 a 50)
@@ -24,6 +19,9 @@ public:
     // Poder de ataque final:
     // ((poderAtaque*5) + (forca*3) + (velocidade*2)) / 10
     int getPoderAtaque() const override;
+
+    // Sorteia novamente os atributos e poder da infantaria
+    void sortearAtributos() override;
 
     // Retorna "Infantaria"
     std::string getTipo() const override;

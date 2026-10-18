@@ -16,6 +16,13 @@ int Infantaria::getPoderAtaque() const {
     return ((poderAtaque * 5) + (forca * 3) + (velocidade * 2)) / 10;
 }
 
+// Sorteia novamente os atributos de infantaria para uma nova batalha
+void Infantaria::sortearAtributos() {
+    poderAtaque = sorteiaValor(30, 60);
+    forca = sorteiaValor(20, 50);
+    velocidade = sorteiaValor(10, 40);
+}
+
 // Identifica o tipo da unidade para impressão e relatórios
 std::string Infantaria::getTipo() const {
     return "Infantaria";

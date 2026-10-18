@@ -1,6 +1,7 @@
 #include "Unidade.hpp"
 
-#include <random>
+#include <cstdlib>
+#include <iostream>
 
 // Inicializa o poder de ataque base e zera o registro de destruições
 Unidade::Unidade(int poderAtaque)
@@ -19,9 +20,13 @@ int Unidade::getDestruicoes() const {
     return destruicoes;
 }
 
-// Gera um número aleatório em [minimo, maximo].
+// Imprime informações da unidade
+void Unidade::print() const {
+    std::cout << getTipo() << " - Poder de Ataque: " << getPoderAtaque()
+              << " - Destruicoes: " << destruicoes << std::endl;
+}
+
+// Gera um número aleatório em [minimo, maximo] usando std::rand().
 int Unidade::sorteiaValor(int minimo, int maximo) {
-    static std::mt19937 gerador(std::random_device{}());
-    std::uniform_int_distribution<int> distribuicao(minimo, maximo);
-    return distribuicao(gerador);
+    return minimo + (std::rand() % (maximo - minimo + 1));
 }

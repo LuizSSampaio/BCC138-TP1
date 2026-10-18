@@ -1,69 +1,67 @@
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <memory>
 
+#include "Aeronave.hpp"
 #include "Campanha.hpp"
 #include "Exercito.hpp"
 #include "Infantaria.hpp"
 #include "Veiculo.hpp"
-#include "Aeronave.hpp"
 
-int main(){
-
+int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-//adicionando exercitos
+    // Adicionando exercitos
+    auto e1 = std::make_shared<Exercito>("Exercito 1");
+    auto e2 = std::make_shared<Exercito>("Exercito 2");
+    auto e3 = std::make_shared<Exercito>("Exercito 3");
 
-    Exercito* e1 = new Exercito();
-    Exercito* e2 = new Exercito();
-    Exercito* e3 = new Exercito();
-//exercito 1
-//preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
+    // Exercito 1
+    // preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
+    e1->adicionarUnidade(std::make_unique<Infantaria>());
+    e1->adicionarUnidade(std::make_unique<Infantaria>());
+    e1->adicionarUnidade(std::make_unique<Veiculo>());
+    e1->adicionarUnidade(std::make_unique<Veiculo>());
+    e1->adicionarUnidade(std::make_unique<Aeronave>());
 
-    e1->adicionarUnidade(new Infantaria());
-    e1->adicionarUnidade(new Infantaria());
-    e1->adicionarUnidade(new Veiculo());
-    e1->adicionarUnidade(new Veiculo());
-    e1->adicionarUnidade(new Aeronave());
+    // Exercito 2
+    // preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
+    e2->adicionarUnidade(std::make_unique<Infantaria>());
+    e2->adicionarUnidade(std::make_unique<Infantaria>());
+    e2->adicionarUnidade(std::make_unique<Veiculo>());
+    e2->adicionarUnidade(std::make_unique<Veiculo>());
+    e2->adicionarUnidade(std::make_unique<Aeronave>());
 
-//exercito 2
-//preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
+    // Exercito 3
+    // preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
+    e3->adicionarUnidade(std::make_unique<Infantaria>());
+    e3->adicionarUnidade(std::make_unique<Infantaria>());
+    e3->adicionarUnidade(std::make_unique<Veiculo>());
+    e3->adicionarUnidade(std::make_unique<Veiculo>());
+    e3->adicionarUnidade(std::make_unique<Aeronave>());
 
-    e2->adicionarUnidade(new Infantaria());
-    e2->adicionarUnidade(new Infantaria());
-    e2->adicionarUnidade(new Veiculo());
-    e2->adicionarUnidade(new Veiculo());
-    e2->adicionarUnidade(new Aeronave());
-
-//exercito 3
-//preenchendo com 2 infantarias, 2 veiculos e 1 aeronave
-
-    e3->adicionarUnidade(new Infantaria());
-    e3->adicionarUnidade(new Infantaria());
-    e3->adicionarUnidade(new Veiculo());
-    e3->adicionarUnidade(new Veiculo());
-    e3->adicionarUnidade(new Aeronave());
-
-//adicionando exercitos na campanha criada
+    // Adicionando exercitos na campanha criada
     Campanha campanha;
     campanha.addExercito(e1);
     campanha.addExercito(e2);
     campanha.addExercito(e3);
 
-//simular a batalha
+    // Demonstrando a impressao de unidades
+    std::cout << "--- Unidades do Exercito 1 ---" << std::endl;
+    e1->imprimeUnidades();
+    std::cout << std::endl;
+
+    // Simular as batalhas
     campanha.simularBatalhas();
 
-//exibe a tabela de posicoes
+    // Exibe a tabela de posicoes na tela e salva em arquivo
+    campanha.gerarTabelaDePosicoes();
     campanha.gerarTabelaDePosicoes("tabela.txt");
     std::cout << std::endl;
-//exibe a unidade mais destrutiba
+
+    // Exibe a unidade mais destrutiva
     campanha.mostrarUnidadeMaisDestrutiva();
-
-//limpa memoria
-
-    delete e1;
-    delete e2;
-    delete e3;
 
     return 0;
 }

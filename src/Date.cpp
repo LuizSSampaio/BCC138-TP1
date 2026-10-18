@@ -17,6 +17,6 @@ Date::Date(int dia, int mes, int ano) {
     this->ano = ano;
 }
 
-std::string Date::formatarData() {
+std::string Date::formatarData() const {
     return std::format("{:02}/{:02}/{}", this->dia, this->mes, this->ano);
 }

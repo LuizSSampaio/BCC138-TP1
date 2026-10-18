@@ -1,50 +1,40 @@
 #include "Campanha.hpp"
 
 #include <algorithm>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <memory>
 
-
-Campanha::Campanha() {}
-
-Campanha::~Campanha(){
-    for(Batalha* b : batalhas){
-        delete b;
-    }
-    for (Exercito* e : exercitos){
-        delete e;
+void Campanha::addExercito(std::shared_ptr<Exercito> exercito) {
+    if (exercito != nullptr) {
+        exercitos.push_back(std::move(exercito));
     }
 }
 
-void Campanha::addExercito(Exercito* exercito){
-    if(exercito != nullptr){
-        exercitos.push_back(exercito);
-    }
-}
-
-void Campanha::simularBatalhas(){
-    if(exercitos.size() < 2){
+void Campanha::simularBatalhas() {
+    if (exercitos.size() < 2) {
         std::cout << "Nao existem exercitos suficientes para a batalha.\n";
         return;
     }
     int diaAtual = 1;
     int mesAtual = 1;
-//gerar partidas ida e volta
-    for(size_t i = 0; i <exercitos.size(); ++i){
-        for(size_t j = 0; j < exercitos.size(); ++j){
-            if( i == j) continue;
-            
-            Date data(diaAtual,mesAtual, 2026);
 
-            Batalha* batalha = new Batalha(data, exercitos[i], exercitos[j]);
+    // Gerar partidas de ida e volta
+    for (size_t i = 0; i < exercitos.size(); ++i) {
+        for (size_t j = 0; j < exercitos.size(); ++j) {
+            if (i == j) continue;
+
+            Date data(diaAtual, mesAtual, 2026);
+
+            auto batalha = std::make_unique<Batalha>(data, exercitos[i], exercitos[j]);
 
             batalha->ataqueExercitoA();
-            batalha->ataqueExeecitoB();
+            batalha->ataqueExercitoB();
 
-            batalhas.push_back(batalha);
+            batalhas.push_back(std::move(batalha));
 
             diaAtual++;
-            if( diaAtual > 28){
+            if (diaAtual > 28) {
                 diaAtual = 1;
                 mesAtual++;
             }
@@ -52,10 +42,13 @@ void Campanha::simularBatalhas(){
     }
 }
 
-void Campanha::gerarTabelaDePosicoes(const std::string& arquivo){
-//ordena os exercitos por numero de vitorias
-    std::vector <Exercito*> tabela = exercitos;
-    std::sort(tabela.begin(),tabela.end(), [](Exercito* a, Exercito* b){
+void Campanha::gerarTabelaDePosicoes(const std::string& arquivo) {
+    // Ordena os exercitos por pontuação (e vitórias em caso de empate)
+    std::vector<std::shared_ptr<Exercito>> tabela = exercitos;
+    std::sort(tabela.begin(), tabela.end(), [](const std::shared_ptr<Exercito>& a, const std::shared_ptr<Exercito>& b) {
+        if (a->getPontos() != b->getPontos()) {
+            return a->getPontos() > b->getPontos();
+        }
         return a->getVitorias() > b->getVitorias();
     });
 
@@ -65,10 +58,10 @@ void Campanha::gerarTabelaDePosicoes(const std::string& arquivo){
         saida.open(arquivo);
     }
     std::ostream& out = arquivo.empty() ? std::cout : saida;
- 
+
     out << "------- Tabela de Posicoes -------" << std::endl;
     int posicao = 1;
-    for (Exercito* e : tabela) {
+    for (const auto& e : tabela) {
         out << posicao << ". " << e->getNome() << " - " << e->getPontos()
             << " pontos - " << e->getResultados() << std::endl;
         posicao++;
@@ -76,22 +69,23 @@ void Campanha::gerarTabelaDePosicoes(const std::string& arquivo){
 }
 
 void Campanha::mostrarUnidadeMaisDestrutiva() const {
-    const Unidade* melhor = nullptr;
-    
+    int maxDestruicoes = -1;
+    std::string melhorTipo;
     std::string nomeExercito;
- 
-    for (const Exercito* e : exercitos) {
-        for (const Unidade* u : e->getUnidades()) {
-            if (melhor == nullptr || u->getDestruicoes() > melhor->getDestruicoes()) {
-                melhor = u;
+
+    for (const auto& e : exercitos) {
+        for (const auto& u : e->getUnidades()) {
+            if (u->getDestruicoes() > maxDestruicoes) {
+                maxDestruicoes = u->getDestruicoes();
+                melhorTipo = u->getTipo();
                 nomeExercito = e->getNome();
             }
         }
     }
- 
-    if (melhor != nullptr) {
-        std::cout << "Unidade mais destrutiva: " << melhor->getTipo()
+
+    if (maxDestruicoes >= 0) {
+        std::cout << "Unidade mais destrutiva: " << melhorTipo
                   << " do exercito " << nomeExercito << " com "
-                  << melhor->getDestruicoes() << " destruicoes" << std::endl;
+                  << maxDestruicoes << " destruicoes" << std::endl;
     }
 }

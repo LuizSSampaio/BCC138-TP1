@@ -16,6 +16,13 @@ int Veiculo::getPoderAtaque() const {
     return ((poderAtaque * 5) + (blindagem * 4) + (potenciaDeFogo * 1)) / 10;
 }
 
+// Sorteia novamente os atributos do veículo para uma nova batalha
+void Veiculo::sortearAtributos() {
+    poderAtaque = sorteiaValor(40, 80);
+    blindagem = sorteiaValor(30, 70);
+    potenciaDeFogo = sorteiaValor(20, 50);
+}
+
 // Identifica o tipo da unidade para impressão e relatórios
 std::string Veiculo::getTipo() const {
     return "Veiculo";
