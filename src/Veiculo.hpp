@@ -1,5 +1,4 @@
-#ifndef VEICULO_HPP
-#define VEICULO_HPP
+#pragma once
 
 #include "Unidade.hpp"
 
@@ -29,5 +28,3 @@ public:
     // Retorna "Veiculo"
     std::string getTipo() const override;
 };
-
-#endif // VEICULO_HPP

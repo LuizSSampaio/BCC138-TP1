@@ -1,5 +1,4 @@
-#ifndef INFANTARIA_HPP
-#define INFANTARIA_HPP
+#pragma once
 
 #include "Unidade.hpp"
 
@@ -29,5 +28,3 @@ public:
     // Retorna "Infantaria"
     std::string getTipo() const override;
 };
-
-#endif // INFANTARIA_HPP

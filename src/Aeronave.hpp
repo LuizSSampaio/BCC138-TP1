@@ -1,5 +1,4 @@
-#ifndef AERONAVE_HPP
-#define AERONAVE_HPP
+#pragma once
 
 #include "Unidade.hpp"
 
@@ -29,5 +28,3 @@ public:
     // Retorna "Aeronave"
     std::string getTipo() const override;
 };
-
-#endif // AERONAVE_HPP
