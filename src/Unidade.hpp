@@ -1,5 +1,4 @@
-#ifndef UNIDADE_HPP
-#define UNIDADE_HPP
+#pragma once
 
 #include <string>
 
@@ -39,5 +38,3 @@ public:
     int getDestruicoes() const;
     
 };
-
-#endif // UNIDADE_HPP
